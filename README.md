@@ -1,0 +1,3 @@
+# Functionalities Available
+* ftime
+* flog
