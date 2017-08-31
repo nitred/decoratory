@@ -7,11 +7,11 @@ import time
 def ftime(func):
     """Decorate the function that you want to time."""
     def func_wrapper(*args, **kwargs):
-        ftime_ = kwargs.pop('ftime', False)
+        ftime_ = kwargs.pop('ftime', True)
         if ftime_:
-            start = time.clock()
+            start = time.time()
             ret_val = func(*args, **kwargs)
-            end = time.clock()
+            end = time.time()
             print("Time elapsed: {:<10.2f} sec".format((end - start)))
         else:
             ret_val = func(*args, **kwargs)
