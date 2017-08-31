@@ -17,18 +17,20 @@ class FlogFormatter(logging.Formatter):
         location_line = error_location[:18] + ":" + line_number
         # s = "%.19s [%-8s] [%-36s] %s" % (self.formatTime(record, self.datefmt),
         #                                  record.levelname,  location_line, record.getMessage())
-        s = "[%-5s] [%-21s] %s" % (record.levelname,  location_line, record.getMessage())
+        s = "[%-8s] [%-25s] %s" % (record.levelname,  location_line, record.getMessage())
         return s
 
 
 flogger = logging.getLogger('flog')
 
 # Prevent recreation of handlers. Maintain a singleton.
-if not len(flogger.handlers):
+if not flogger.hasHandlers():
     handler = logging.StreamHandler(stream=sys.stdout)
     handler.setFormatter(FlogFormatter())
     flogger.addHandler(handler)
-    flogger.setLevel(logging.CRITICAL)
+    flogger.setLevel(logging.DEBUG)
+    flogger.warning("No external logging handlers found for FLOGGER. FLOGGER will use it's own logging handler:"
+                    "\"logging.StreamHandler(stream=sys.stdout)\", with default logLevel as DEBUG.")
 
 
 def flog(func):
@@ -42,17 +44,18 @@ def flog(func):
         flogLevel (logging.Levels): Extracted from kwargs. Default logging.DEBUG.
     """
     def func_wrapper(*args, **kwargs):
-        flog_ = kwargs.pop('flog', False)
+        flog_ = kwargs.pop('flog', True)
         flogLevel = kwargs.pop('flogLevel', logging.DEBUG)
         if flog_:
             flogger.setLevel(flogLevel)
-            # flogger.log(flogLevel, "============================================= {}".format(func.__name__))
+        else:
+            flogger.setLevel(logging.CRITICAL + 10)
 
         # Pass args and kwargs as is to the function.
         ret_val = func(*args, **kwargs)
 
         # Reset log level.
-        flogger.setLevel(logging.CRITICAL)
+        flogger.setLevel(logging.DEBUG)
         return ret_val
 
     return func_wrapper
