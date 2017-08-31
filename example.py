@@ -22,11 +22,11 @@ print("Test FTIME NAIVELY                 : Time elapsed PRINTED")
 test_ftime(foo="bar")
 
 print("---------------------------------------------------------")
-print("Test FTIME with ftime set to False : Time elapsed IGNORED")
+print("Test FTIME DISABLED                : Time elapsed IGNORED")
 test_ftime(foo="bar", ftime=False)
 
 print("---------------------------------------------------------")
-print("Test FTIME with ftime set to True  : Time elapsed PRINTED")
+print("Test FTIME ENABLED                 : Time elapsed PRINTED")
 test_ftime(foo="bar", ftime=True)
 
 
