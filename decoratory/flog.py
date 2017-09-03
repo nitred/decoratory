@@ -14,7 +14,7 @@ class FlogFormatter(logging.Formatter):
         """Default formatter."""
         error_location = "%s.%s" % (record.name, record.funcName)
         line_number = "%s" % (record.lineno)
-        location_line = error_location[:18] + ":" + line_number
+        location_line = error_location[:21] + ":" + line_number
         # s = "%.19s [%-8s] [%-36s] %s" % (self.formatTime(record, self.datefmt),
         #                                  record.levelname,  location_line, record.getMessage())
         s = "[%-8s] [%-25s] %s" % (record.levelname,  location_line, record.getMessage())
