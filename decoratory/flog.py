@@ -29,8 +29,8 @@ if not flogger.hasHandlers():
     handler.setFormatter(FlogFormatter())
     flogger.addHandler(handler)
     flogger.setLevel(logging.DEBUG)
-    flogger.warning("No external logging handlers found for FLOGGER. FLOGGER will use it's own logging handler:"
-                    "\"logging.StreamHandler(stream=sys.stdout)\", with default logLevel as DEBUG.")
+    # flogger.warning("No external logging handlers found for FLOGGER. FLOGGER will use its own logging handler:"
+    #                 "\"logging.StreamHandler(stream=sys.stdout)\", with default logLevel set to DEBUG.")
 
 
 def flog(func):
