@@ -2,7 +2,8 @@
 import logging
 import time
 
-from decoratory import flog, flogger, ftime
+from decoratory.flog import flog, flogger
+from decoratory.ftime import ftime
 
 
 #############################
