@@ -32,6 +32,13 @@ if not flogger.hasHandlers():
     # flogger.warning("No external logging handlers found for FLOGGER. FLOGGER will use its own logging handler:"
     #                 "\"logging.StreamHandler(stream=sys.stdout)\", with default logLevel set to DEBUG.")
 
+flogLevel_lookup = {
+    "DEBUG": logging.DEBUG,
+    "INFO": logging.INFO,
+    "WARNING": logging.WARNING,
+    "CRITICAL": logging.CRITICAL,
+}
+
 
 def flog(func):
     """Decorate functions to have control over whether to flog or not.
@@ -46,6 +53,8 @@ def flog(func):
     def func_wrapper(*args, **kwargs):
         flog_ = kwargs.pop('flog', True)
         flogLevel = kwargs.pop('flogLevel', logging.DEBUG)
+        if isinstance(flogLevel, str):
+            flogLevel = flogLevel_lookup[flogLevel.upper()]  # Wrong key will throw error
         if flog_:
             flogger.setLevel(flogLevel)
         else:
