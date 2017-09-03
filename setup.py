@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(name='decoratory',
-      version='0.0.2',
+      version='0.0.3',
       description='Quick and simple annotations for Python scripts.',
       author='Nitish Reddy Koripalli',
       author_email='nitish.k.reddy@gmail.com',
