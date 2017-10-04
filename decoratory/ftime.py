@@ -2,10 +2,12 @@
 from __future__ import print_function
 
 import time
+from functools import wraps
 
 
 def ftime(func):
     """Decorate the function that you want to time."""
+    @wraps(func)
     def func_wrapper(*args, **kwargs):
         ftime_ = kwargs.pop('ftime', True)
         if ftime_:
